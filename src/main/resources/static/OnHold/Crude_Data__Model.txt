@@ -1,0 +1,90 @@
+POC SkillsMatrix
+
+Proposed Entities:
+
+	Project
+	Employee 
+	Skill
+	BUSINESS_UNIT
+	Client/Customers
+
+------
+
+Entity w/ Properties:
+
+SKILL{
+		name: 
+		resources: {homePage:link,training:link}
+		description:
+		technology:
+}
+
+-------
+
+EMPLOYEE{
+		name:
+		lbu:
+		location:
+		role:
+		willing_to_relocate: YesOrNo
+		willing_to_travel: YesOrNo
+}
+
+
+------
+ROLE{
+		name: (Tech or Business)
+		
+}
+
+-------
+
+PROJECT{
+		name:
+		location:
+		rolesNeededOnProject: {tech: numberOfRoles, business: numberOfRoles}
+		skillsNeededOnProject: {tech: skills, business: skills}
+}
+
+---------
+
+BUSINESS_UNIT{
+		location:
+
+}
+
+Labels on Entities:
+
+	Project  :PositionsFilled :HasOpenPositions
+	Employee :OnBench :OnProject
+	Skill 
+	BUSINESS_UNIT
+
+---------------------------------------------------
+
+Relationships:
+	Project-[projectSkill {requiredSkill: YesOrNo, experienceLevelNeeded: lengthYears}]->Skill
+	Employee-[has_skill {expertise: lengthYears}]->Skill
+	Employee-[activePosition]->Project
+	Employee-[belongsTo]->Business_Unit
+
+
+CreatedRelationships: 
+	Employee-[still_needs]->Skill
+	
+		match (p:Project {name: targetProject})
+		match (p)-[projectSkill]->(y:Skill)
+		return y.name AS skillRequired
+
+		match (e:Employee)
+		match (e)-[has_skill]->(y:Skill)
+
+
+
+
+
+
+
+
+		
+

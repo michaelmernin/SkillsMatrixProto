@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{#Employee}}
+Perficient Employee: <b>{{employeeName}}</b> role: {{employeeRole}} Project: {{#ProjectWorkingOn}} {{ProjectWorkingOn}} {{/ProjectWorkingOn}} skills:{{#SKILLS_POSSESSED}} {{SKILLS_POSSESSED}} {{/SKILLS_POSSESSED}}
+
+Enter Skill for Employee {{employeeName}}
+<form action="/addSkillToEmployee" method="post">
+    <input type="text" value="{{employeeName}}" name="empName">
+    <input type="text" placeholder="Name of Skill" name="skillName"/><br>
+    <input type="text" placeholder="Expertise (1-5)" name="expertise"/><br>
+    <input type="text" placeholder="Expertise Description" name="descrExpertise"/><br>
+    <button type="submit">ADD Skill</button>
+</form>
+
+<form action="/employeeSkills" method="get">
+    <input type="text" value="{{employeeName}}" name="name">
+    <button type="submit">Get SKills</button>
+</form>
+{{/Employee}}
+</body>
+</html>
