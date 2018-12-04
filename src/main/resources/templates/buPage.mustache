@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/addBusinessUnit" method="post">
+    <input type="text" placeholder="Add BU Name" name="buName">
+    <input type="text" placeholder="BU Location" name="buLocation">
+    <button type="submit">Add BU</button>
+</form>
+
+<form action="/getBU" method="get">
+    <input type="text" placeholder="Find BU" name="buName">
+    <button type="submit">Get BU</button>
+</form>
+
+{{#buName}}
+<form action="/getEmployeesOfBU" method="get">
+    <input type="text" value="{{buName}}" name="buName">
+    <button type="submit">Get Employees of BU {{buName}}</button>
+</form>
+
+   Employees of {{buName}}: {{#employees}} {{.}} {{/employees}}
+
+<form action="/addEmployeeToBU" method="post">
+    <input type="text" value="{{buName}}" name="buName">
+    <input type="text" placeholder="Name of Employee" name="employeeName">
+    <button type="submit">Add Employee To BU</button>
+</form>
+
+<form action="/getEmployeeInfo" method="get">
+    <input type="text" placeholder="Name of Employee To Get" name="text"/><br>
+    <button type="submit">Get Employee Info</button>
+
+</form>
+
+<form action="/getBUSkills" method="get">
+    <input type="text" value="{{buName}}" name="buName"/><br>
+    <button type="submit">Get BU Foundational Skills</button>
+
+</form>
+
+
+<form action="/addBUSkills" method="post">
+    <input type="text" value="{{buName}}" name="buName"/><br>
+    <input type="text" placeholder="Skill" name="skillName"/><br>
+    <button type="submit">ADD Skill to Business Unit</button>
+</form>
+
+<form action="/compareEmpToBUSkills" method="get">
+    <input type="text" value="{{buName}}" name="buName"/><br>
+    <input type="text" placeholder="Employee Name" name="employeeName"/><br>
+    <button type="submit">Employee's Skill Report</button>
+</form>
+
+{{#skills}}
+    {{.}}
+{{/skills}}
+
+{{/buName}}
+
+{{#buList}}
+    BU:
+    {{.}}
+{{/buList}}
+
+<form action="/" method="get">
+    <button type="submit">Go Home</button>
+</form>
+
+</body>
+</html>

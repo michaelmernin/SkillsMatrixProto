@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/getEmployeeInfo" method="get">
+    <input type="text" placeholder="Name of Employee To Get" name="text"/><br>
+    <button type="submit">Get Employee Info</button>
+
+</form>
+<form action="/addEmployee" method="post">
+    <input type="text" placeholder="Name of Employee" name="newName"/><br>
+    <input type="text" placeholder="Employee Role" name="role"/><br>
+    <input type="text" placeholder="Location" name="location"/><br>
+    <button type="submit">ADD Employee</button>
+</form>
+
+{{#buName}}
+Employees available for BU: {{buName}} {{/buName}}
+{{#employeeList}} {{.}} {{/employeeList}}
+
+<form action="/" method="get">
+    <button type="submit">Go Home</button>
+</form>
+
+</body>
+</html>

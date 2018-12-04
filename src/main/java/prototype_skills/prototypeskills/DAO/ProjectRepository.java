@@ -6,5 +6,5 @@ import prototype_skills.prototypeskills.Entities.Project;
 
 public interface ProjectRepository extends Neo4jRepository<Project, Long> {
 
-    //BusinessUnit findByProject;
+    Project findByName (String name);
 }

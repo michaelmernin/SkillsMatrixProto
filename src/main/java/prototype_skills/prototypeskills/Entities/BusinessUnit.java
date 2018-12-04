@@ -16,6 +16,9 @@ public class BusinessUnit {
     private String name;
     private String location;
 
+    @Relationship(type = "FOUNDATIONAL_BU_SKILL")
+    private Skill skill;
+
     public BusinessUnit(String name, String location) {
         this.name = name;
         this.location = location;

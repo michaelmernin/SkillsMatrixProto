@@ -24,11 +24,8 @@ public class Employee {
     @Relationship(type = "EMPLOYEE_OF_BU")
     private BusinessUnit businessUnitWorkingFor;
 
-    @Relationship(type = "WORKED_ON_PROJECT", direction = Relationship.OUTGOING)
+    @Relationship(type = "WORKED_ON_PROJECT")
     private Project project;
-
-    @Relationship(type = "NEEDS_SKILL")
-    private Skill neededSkill;
 
 
     public Employee(String name, String role, String location) {
@@ -104,11 +101,4 @@ public class Employee {
         this.project = project;
     }
 
-    public Skill getNeededSkill() {
-        return neededSkill;
-    }
-
-    public void setNeededSkill(Skill neededSkill) {
-        this.neededSkill = neededSkill;
-    }
 }

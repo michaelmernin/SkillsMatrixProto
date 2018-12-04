@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface BusinessUnitRepository extends Neo4jRepository<BusinessUnit, Long> {
 
-//    BusinessUnit findByName(String name);
-//
-//    List<BusinessUnit> findALL();
+    BusinessUnit findByName(String name);
+    List<BusinessUnit> findAll();
+
 
 }

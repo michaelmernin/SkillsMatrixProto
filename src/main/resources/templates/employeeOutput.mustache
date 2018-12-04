@@ -21,6 +21,23 @@ Enter Skill for Employee {{employeeName}}
     <input type="text" value="{{employeeName}}" name="name">
     <button type="submit">Get SKills</button>
 </form>
+
+<form action="/compareEmpToSkills" method="get">
+    <input type="text" value="{{employeeName}}" name="employeeName">
+    <input type="text" placeholder="Project Name" name="projectName">
+    <button type="submit">Compare Employee skillset against Project essential skills</button>
+</form>
+<form action="/editEmployee" method="post">
+    <input type="text" value="{{employeeName}}" name="newName">
+    <input type="text" placeholder="Edit Name of Employee" name="editNewName"/><br>
+    <input type="text" placeholder="Edit Employee Role" name="editRole"/><br>
+    <input type="text" placeholder="Edit Location" name="editLocation"/><br>
+    <button type="submit">Edit Employee</button>
+</form>
 {{/Employee}}
+
+<form action="/" method="get">
+    <button type="submit">Go Home</button>
+</form>
 </body>
 </html>

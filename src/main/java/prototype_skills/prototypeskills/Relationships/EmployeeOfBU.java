@@ -5,18 +5,22 @@ import prototype_skills.prototypeskills.Entities.BusinessUnit;
 import prototype_skills.prototypeskills.Entities.Employee;
 
 @RelationshipEntity(type = "EMPLOYEE_OF_BU")
-public class EmployeeBelongsToBU {
+public class EmployeeOfBU {
 
-    @GeneratedValue@Id private Long id;
-    @StartNode private Employee employee;
-    @EndNode private BusinessUnit businessUnit;
+    @GeneratedValue
+    @Id
+    private Long id;
+    @StartNode
+    private Employee employee;
+    @EndNode
+    private BusinessUnit businessUnit;
 
-    public EmployeeBelongsToBU(Employee employee, BusinessUnit businessUnit) {
+    public EmployeeOfBU(Employee employee, BusinessUnit businessUnit) {
         this.employee = employee;
         this.businessUnit = businessUnit;
     }
 
-    public EmployeeBelongsToBU() {
+    public EmployeeOfBU() {
     }
 
     public Long getId() {
@@ -43,3 +47,4 @@ public class EmployeeBelongsToBU {
         this.businessUnit = businessUnit;
     }
 }
+

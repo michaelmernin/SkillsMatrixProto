@@ -6,9 +6,20 @@
 </head>
 <body>
 
+{{#Employee}} Employee {{employeeName}} has the necessary skills below needed for {{projectName}}
+
 {{#skills}}
-    {{.}}
+    {{skills}}
 {{/skills}}
+
+Does not have the Skill for {{projectName}}
+
+{{#nonSkills}}
+    {{.}}
+{{/nonSkills}}
+
+
+{{/Employee}}
 
 <form action="/" method="get">
     <button type="submit">Go Home</button>

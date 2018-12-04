@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/addProject" method="post">
+    <input type="text" placeholder="Project Name" name="name"/><br>
+    <input type="text" placeholder="Location" name="location"/><br>
+    <button type="submit">ADD Project</button>
+</form>
+
+<form action="/addProjectSkills" method="post">
+    <input type="text" placeholder="Project Name" name="projectName"/><br>
+    <input type="text" placeholder="Skill" name="skillName"/><br>
+    <input type="text" placeholder="Is Essential? True or False" name="isEssential"/><br>
+    <button type="submit">ADD Skill to Project</button>
+</form>
+
+<form action="/compareEmpToSkills" method="get">
+    <input type="text" placeholder="Project Name" name="projectName"/><br>
+    <input type="text" placeholder="Employee Name" name="employeeName"/><br>
+    <button type="submit">Skills Employee has for Project Specified</button>
+</form>
+
+<form action="/" method="get">
+    <button type="submit">Go Home</button>
+</form>
+
+
+</body>
+</html>

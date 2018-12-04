@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>yFiles for HTML Sample Web App</title>
+    <link type="text/css" rel="stylesheet" href="./lib/yfiles.css">
+    <!-- supply some sane defaults for the graph component and page -->
+    <style>html, body, #graphComponent { width: 100%; height: 100%; padding: 0; margin: 0; }</style>
+    <!-- enable runtime type information for debugging (this is optional) -->
+    <script src="./ide-support/yfiles-typeinfo.js"></script>
+</head>
+<body>
+<div id="graphComponent"></div>
+<script src="./demos/resources/require.js"></script>
+<script>
+    require.config({baseUrl: './lib/umd/'});
+    require(['yfiles/complete', './demos/resources/license.js'], (yfiles) => {
+        // this is where the application code can be placed in
+    });
+</script>
+</body>
+</html>
