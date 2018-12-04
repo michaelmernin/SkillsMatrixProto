@@ -1,5 +1,3 @@
-package prototype_skills.prototypeskills.Relationships;
-
 import org.neo4j.ogm.annotation.*;
 import prototype_skills.prototypeskills.Entities.BusinessUnit;
 import prototype_skills.prototypeskills.Entities.Project;

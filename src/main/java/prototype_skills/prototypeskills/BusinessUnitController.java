@@ -13,7 +13,6 @@ import prototype_skills.prototypeskills.DAO.Rels.FoundationalBUSkillRepo;
 import prototype_skills.prototypeskills.DAO.SkillRepository;
 import prototype_skills.prototypeskills.Entities.BusinessUnit;
 import prototype_skills.prototypeskills.Entities.Employee;
-import prototype_skills.prototypeskills.Entities.Project;
 import prototype_skills.prototypeskills.Entities.Skill;
 import prototype_skills.prototypeskills.Relationships.EmployeeOfBU;
 import prototype_skills.prototypeskills.Relationships.FoundationalBUSkill;

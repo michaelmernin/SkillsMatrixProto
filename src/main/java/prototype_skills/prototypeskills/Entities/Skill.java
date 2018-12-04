@@ -19,8 +19,7 @@ public class Skill {
     private String description;
     private String technology;
 
-//    @Relationship(type = "HAS_SKILL", direction = Relationship.INCOMING)
-//    private Employee employee;
+
 
     public Skill(String name, String resourceLinks, String description, String technology) {
         this.name = name;

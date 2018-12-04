@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Controller
-public class QueryController {
+public class AdvancedQueryController {
 
     @Autowired
     EmployeeRepository employeeRepository;
