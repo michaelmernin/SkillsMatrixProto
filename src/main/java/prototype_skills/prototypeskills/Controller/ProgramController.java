@@ -1,8 +1,8 @@
-package prototype_skills.prototypeskills;
+package prototype_skills.prototypeskills.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import prototype_skills.prototypeskills.Entities.Project;
+
 
 @Controller
 public class ProgramController {

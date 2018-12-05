@@ -2,7 +2,11 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.repository.query.Param;
+import prototype_skills.prototypeskills.Entities.Skill;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -81,3 +85,12 @@ public class Project {
         this.projectOfBU = projectOfBU;
     }
 }
+
+    @Query("MATCH (e:Employee {name: {employeeName}})-[has:HAS_SKILL]->(s:Skill)<-[r:SKILLS_NEEDED_ON_PROJECT]-(p:Project {name: {projectName}}) RETURN s")
+    Collection<Skill> employeeHasProjectSkills(@Param("employeeName") String employeeName,
+                                               @Param("projectName") String projectName);
+
+
+    @Query("MATCH (p:Project {name: {projectName}})-[needs:SKILLS_NEEDED_ON_PROJECT]->(s:Skill) where not (s)<-[:HAS_SKILL]-(:Employee {name: {employeeName}}) return s")
+    Collection<Skill> employeeNeedsProjectSkills(@Param("employeeName") String employeeName,
+                                                 @Param("projectName") String projectName);

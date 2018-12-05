@@ -5,6 +5,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 import prototype_skills.prototypeskills.Entities.Employee;
 import prototype_skills.prototypeskills.Entities.Skill;
+import prototype_skills.prototypeskills.Relationships.HasSkill;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,18 +17,14 @@ public interface SkillRepository extends Neo4jRepository<Skill, Long> {
     Skill findByTechnology(String technology);
 //    List<Skill> findAllByEmployee (Employee employee);
     //Set<Skill> findAllBy;
+    //Skill findById (Long id);
 
-    @Query("MATCH (s:Skill)<-[r:HAS_SKILL]-(e:Employee {name: {name}}) RETURN s")
-    Collection<Skill> skillsList(@Param("name") String name);
+    @Query("MATCH (s:Skill)<-[r:HAS_SKILL]-(e:Employee {name: {employeeName}}) RETURN s")
+    Collection<Skill> skillsList(@Param("employeeName") String employeeName);
 
-    @Query("MATCH (e:Employee {name: {employeeName}})-[has:HAS_SKILL]->(s:Skill)<-[r:SKILLS_NEEDED_ON_PROJECT]-(p:Project {name: {projectName}}) RETURN s")
-    Collection<Skill> employeeHasProjectSkills(@Param("employeeName") String employeeName,
-                                               @Param("projectName") String projectName);
+    @Query("MATCH (s:Skill {name: {skillName}})<-[r:HAS_SKILL]-(e:Employee {name: {employeeName}}) RETURN r")
+    HasSkill getSkill(@Param("employeeName") String employeeName, @Param("skillName") String skillName);
 
-
-    @Query("MATCH (p:Project {name: {projectName}})-[needs:SKILLS_NEEDED_ON_PROJECT]->(s:Skill) where not (s)<-[:HAS_SKILL]-(:Employee {name: {employeeName}}) return s")
-    Collection<Skill> employeeNeedsProjectSkills(@Param("employeeName") String employeeName,
-                                               @Param("projectName") String projectName);
 
     @Query("MATCH (p:BusinessUnit {name: {buName}})-[needs:FOUNDATIONAL_BU_SKILL]->(s:Skill) where not (s)<-[:HAS_SKILL]-(:Employee {name: {employeeName}}) return s")
     Collection<Skill> employeeNeedsBUSkills(@Param("employeeName") String employeeName,
@@ -40,5 +37,6 @@ public interface SkillRepository extends Neo4jRepository<Skill, Long> {
 
     @Query("MATCH (s:Skill)<-[r:FOUNDATIONAL_BU_SKILL]-(e:BusinessUnit {name: {buName}}) RETURN s")
     Collection<Skill> buSkillsList(@Param("buName") String buName);
-    //List<Skill> findByEm
+
+
 }

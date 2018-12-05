@@ -1,4 +1,4 @@
-package prototype_skills.prototypeskills;
+package prototype_skills.prototypeskills.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import prototype_skills.prototypeskills.Entities.Employee;
 import prototype_skills.prototypeskills.Entities.Skill;
 import prototype_skills.prototypeskills.Relationships.EmployeeOfBU;
 import prototype_skills.prototypeskills.Relationships.FoundationalBUSkill;
-import prototype_skills.prototypeskills.Relationships.SkillsNeededOnProject;
+
 
 import java.util.*;
 

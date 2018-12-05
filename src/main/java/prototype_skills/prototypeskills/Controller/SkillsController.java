@@ -1,4 +1,4 @@
-package prototype_skills.prototypeskills;
+package prototype_skills.prototypeskills.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

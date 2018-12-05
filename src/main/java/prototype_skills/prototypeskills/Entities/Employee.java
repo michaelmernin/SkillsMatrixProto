@@ -11,18 +11,15 @@ public class Employee {
     @GeneratedValue@Id private Long id;
 
     private String name;
-    private String role;
-    private String location;
-    private boolean onBench;
+    private  String role;
+    private  String location;
+
 
     @Relationship(type = "HAS_SKILL")
     private Skill skill;
 
     @Relationship(type = "EMPLOYEE_OF_BU")
     private BusinessUnit businessUnitWorkingFor;
-
-    @Relationship(type = "WORKED_ON_PROJECT")
-    private Project project;
 
 
     public Employee(String name, String role, String location) {
@@ -66,21 +63,14 @@ public class Employee {
         this.location = location;
     }
 
-    public boolean isOnBench() {
-        return onBench;
-    }
 
-    public void setOnBench(boolean onBench) {
-        this.onBench = onBench;
-    }
-
-    public Skill getSkill() {
-        return skill;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
-    }
+//    public Skill getSkill() {
+//        return skill;
+//    }
+//
+//    public void setSkill(Skill skill) {
+//        this.skill = skill;
+//    }
 
     public BusinessUnit getBusinessUnitWorkingFor() {
         return businessUnitWorkingFor;
@@ -89,13 +79,4 @@ public class Employee {
     public void setBusinessUnitWorkingFor(BusinessUnit businessUnitWorkingFor) {
         this.businessUnitWorkingFor = businessUnitWorkingFor;
     }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
 }

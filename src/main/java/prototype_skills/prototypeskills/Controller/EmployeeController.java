@@ -1,5 +1,6 @@
-package prototype_skills.prototypeskills;
+package prototype_skills.prototypeskills.Controller;
 
+import com.sun.javafx.UnmodifiableArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,9 @@ import prototype_skills.prototypeskills.Entities.Employee;
 import prototype_skills.prototypeskills.Entities.Skill;
 import prototype_skills.prototypeskills.Relationships.HasSkill;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.lang.annotation.ElementType;
+
+import java.util.*;
 
 @Controller
 public class EmployeeController {
@@ -61,12 +62,49 @@ public class EmployeeController {
         return "employeePage";
     }
 
+    @PostMapping(path = "/editEmployeeSkill")
+    public String employeeEditSkill(String skillName, String expertise, String description, String name){
+
+        //HasSkill hasSkill = hasSkillRepository.editHasSkill(name, skillName, expertise);
+
+        Map<String, String> r = hasSkillRepository.getHasSkill(name, skillName);
+
+        String exp = r.get("expertise");
+        String desc = r.get("descriptionOfExpertise");
+
+        int x = 5;
+
+
+//        HasSkill hasSkill = hasSkillRepository.getHasSkill(name, skillName);
+//        HasSkill r = skillRepository.getSkill(name, skillName);
+//        if(expertise.length() != 0) {
+//            hasSkill.setExpertise(expertise);
+//        } else {
+//            hasSkill.setExpertise("l");
+//        }
+//        if(description.length() != 0) {
+//            hasSkill.setDescriptionOfExpertise(description);
+//        } else {
+//            hasSkill.setDescriptionOfExpertise("s");
+//        }
+//
+//
+//
+//        hasSkillRepository.save(hasSkill);
+
+        return "employeePage";
+    }
+
     @PostMapping(path = "/addSkillToEmployee")
     public String addEmployeeSkill(String skillName, String empName, String expertise, String descrExpertise, Model model){
 
         Skill skill = skillRepository.findByName(skillName);
         Employee employee = employeeRepository.findFirstByName(empName);
         HasSkill rskill = new HasSkill(expertise, descrExpertise, employee, skill);
+//        rskill.setExpertise(expertise);
+//        rskill.setDescriptionOfExpertise(descrExpertise);
+//        rskill.setEmployee(employee);
+//        rskill.setSkill(skill);
 
         hasSkillRepository.save(rskill);
 
