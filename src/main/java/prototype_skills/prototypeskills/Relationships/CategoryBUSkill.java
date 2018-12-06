@@ -2,10 +2,11 @@ package prototype_skills.prototypeskills.Relationships;
 
 import org.neo4j.ogm.annotation.*;
 import prototype_skills.prototypeskills.Entities.BusinessUnit;
+import prototype_skills.prototypeskills.Entities.CategorySkill;
 import prototype_skills.prototypeskills.Entities.Skill;
 
-@RelationshipEntity(type = "FOUNDATIONAL_BU_SKILL")
-public class FoundationalBUSkill {
+@RelationshipEntity(type = "CATEGORY_BU_SKILL")
+public class CategoryBUSkill {
 
     @GeneratedValue
     @Id
@@ -14,12 +15,12 @@ public class FoundationalBUSkill {
     @StartNode
     private BusinessUnit businessUnit;
     @EndNode
-    private Skill skill;
+    private CategorySkill categorySkill;
 
-    public FoundationalBUSkill(BusinessUnit businessUnit, Skill skill) {
+    public CategoryBUSkill(BusinessUnit businessUnit, CategorySkill categorySkill) {
 
         this.businessUnit = businessUnit;
-        this.skill = skill;
+        this.categorySkill = categorySkill;
     }
 
 
@@ -39,15 +40,15 @@ public class FoundationalBUSkill {
         this.businessUnit = businessUnit;
     }
 
-    public Skill getSkill() {
-        return skill;
+    public CategorySkill getCategorySkill() {
+        return categorySkill;
     }
 
-    public void setSkill(Skill skill) {
-        this.skill = skill;
+    public void setCategorySkill(CategorySkill categorySkill) {
+        this.categorySkill = categorySkill;
     }
 
-    public FoundationalBUSkill() {
+    public CategoryBUSkill() {
 
     }
 

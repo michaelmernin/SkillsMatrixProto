@@ -7,12 +7,18 @@
 <body>
 
 <form action="/addSkill" method="post">
-    <input type="text" placeholder="Skill Name" name="name"/><br>
+    <input type="text" placeholder="Skill Name" name="skillName"/><br>
     <input type="text" placeholder="resourceLinks" name="resourceLinks"/><br>
     <input type="text" placeholder="Description" name="description"/><br>
     <input type="text" placeholder="Technology" name="technology"/><br>
     <button type="submit">ADD Skill</button>
 </form>
+
+<form action="/addCategorySkill" method="post">
+    <input type="text" placeholder="Skill Name" name="skillName"/><br>
+    <button type="submit">ADD Category Skill</button>
+</form>
+
 
 
 <form action="/" method="get">

@@ -2,20 +2,26 @@ package prototype_skills.prototypeskills.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.QueryCreationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import prototype_skills.prototypeskills.DAO.BusinessUnitRepository;
 import prototype_skills.prototypeskills.DAO.EmployeeRepository;
+import prototype_skills.prototypeskills.DAO.Rels.BUSkillRepo;
+import prototype_skills.prototypeskills.DAO.Rels.CategoryBUSkillRepo;
 import prototype_skills.prototypeskills.DAO.Rels.EmployeeOfBURepo;
-import prototype_skills.prototypeskills.DAO.Rels.FoundationalBUSkillRepo;
+
 import prototype_skills.prototypeskills.DAO.SkillRepository;
 import prototype_skills.prototypeskills.Entities.BusinessUnit;
+import prototype_skills.prototypeskills.Entities.CategorySkill;
 import prototype_skills.prototypeskills.Entities.Employee;
 import prototype_skills.prototypeskills.Entities.Skill;
+import prototype_skills.prototypeskills.Relationships.BUSkill;
 import prototype_skills.prototypeskills.Relationships.EmployeeOfBU;
-import prototype_skills.prototypeskills.Relationships.FoundationalBUSkill;
+import prototype_skills.prototypeskills.Relationships.CategoryBUSkill;
 
 
 import java.util.*;
@@ -36,7 +42,10 @@ public class BusinessUnitController {
     SkillRepository skillRepository;
 
     @Autowired
-    FoundationalBUSkillRepo foundationalBUSkillRepo;
+    CategoryBUSkillRepo categoryBUSkillRepo;
+
+    @Autowired
+    BUSkillRepo buSkillRepo;
 
     @PostMapping(path = "/addBusinessUnit")
     public String addBU(String buName, String location){
@@ -47,19 +56,21 @@ public class BusinessUnitController {
         return "index";
     }
 
-    @PostMapping(path = "/addEmployeeToBU")
-    public String addEMPBu(String employeeName, String buName, Model model){
-        Employee employee = employeeRepository.findFirstByName(employeeName);
-        BusinessUnit bu = businessUnitRepository.findByName(buName);
-
-        EmployeeOfBU employeeOfBU = new EmployeeOfBU(employee, bu);
-
-        employeeOfBURepo.save(employeeOfBU);
-
-        model.addAttribute("buName", buName);
-
-        return "buPage";
-    }
+//    @PostMapping(path = "/addEmployeeToBU")
+//    public String addEMPBu(String employeeName, String buName, Model model){
+//
+//        Employee employee = employeeRepository.findByName(employeeName);
+//        BusinessUnit bu = businessUnitRepository.findByName(buName);
+//
+//        EmployeeOfBU employeeOfBU = new EmployeeOfBU(employee, bu);
+//
+//        employeeOfBURepo.save(employeeOfBU);
+//
+//        model.addAttribute("buName", buName);
+//
+//        return "buPage";
+//
+//    }
 
     @GetMapping(path = "/getEmployeesOfBU")
     public String getEmployees(String buName, Model model) throws Exception{
@@ -79,7 +90,7 @@ public class BusinessUnitController {
     }
 
     @GetMapping(path = "/getBU")
-    public String getBUs(String buName, Model model) throws Exception{
+    public String getBUs(Model model, String buName) throws Exception{
 
         BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
         model.addAttribute("buName", businessUnit.getName());
@@ -87,7 +98,7 @@ public class BusinessUnitController {
         return "buPage";
     }
 
-    @GetMapping(path = "/BU")
+    @GetMapping(path = "/getAllBus")
     public String BUs(Model model){
 
         List<BusinessUnit> bus = businessUnitRepository.findAll();
@@ -99,33 +110,47 @@ public class BusinessUnitController {
         return "buPage";
     }
 
-    @PostMapping(path = "/addBUSkills")
+    @PostMapping(path = "/addBUCategorySkills")
+    public String addBUCategorySkills(Model model, String buName, String categorySkillName){
+        BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
+        CategorySkill categorySkill = new CategorySkill(categorySkillName);
+        CategoryBUSkill categoryBUSkill = new CategoryBUSkill(businessUnit, categorySkill);
+
+        categoryBUSkillRepo.save(categoryBUSkill);
+
+        return "buPage";
+    }
+
+    @PostMapping(path = "/addSkillsToBU")
     public String addProjectSkills(Model model, String buName, String skillName) {
 
-        BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
-        Skill skill = skillRepository.findByName(skillName);
-        //boolean isEssential = Boolean.valueOf(essential);
-        FoundationalBUSkill foundationalBUSkill = new FoundationalBUSkill(businessUnit, skill);
-        foundationalBUSkillRepo.save(foundationalBUSkill);
+//        BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
+//        Skill skill = skillRepository.findByName(skillName);
+//        BUSkill buSkill = new BUSkill(businessUnit, skill);
+//        buSkillRepo.save(buSkill);
+
+        buSkillRepo.addSkillToBU(skillName, buName);
 
         model.addAttribute("buName", buName);
 
         return "buPage";
     }
 
-    @GetMapping(path = "/getBUSkills")
+    @GetMapping(path = "/getBUSkillsTree")
     public String empSkill(Model model, String buName){
         BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
         Collection<Skill> skillList = skillRepository.buSkillsList(businessUnit.getName());
-
-        //List<Skill> skillList = skillRepository.findAllByEmployee(employee);
 
         List<String> stringList = new ArrayList<>();
         skillList.forEach(hasSkill -> stringList.add(hasSkill.getName()));
         model.addAttribute("skills", stringList);
         model.addAttribute("buName", buName);
 
-        //skillList.forEach(hasSkill -> model.addAttribute("skills", hasSkill.getName()));
+        return "buPage";
+    }
+
+    @GetMapping(path = "/getBUCategorySkillTree")
+    public String buSkillTree(Model model, String buName){
 
         return "buPage";
     }

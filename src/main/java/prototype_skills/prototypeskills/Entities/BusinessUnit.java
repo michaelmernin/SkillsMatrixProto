@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @NodeEntity(label = "BusinessUnit")
@@ -16,8 +17,8 @@ public class BusinessUnit {
     private String name;
     private String location;
 
-    @Relationship(type = "FOUNDATIONAL_BU_SKILL")
-    private Skill skill;
+    @Relationship(type = "CATEGORY_BU_SKILL")
+    private List<Skill> skill;
 
     public BusinessUnit(String name, String location) {
         this.name = name;
@@ -50,4 +51,13 @@ public class BusinessUnit {
     public void setLocation(String location) {
         this.location = location;
     }
+
+//    public List<Skill> getSkill() {
+//        return skill;
+//    }
+//
+//    public void setSkill(List<Skill> skill) {
+//        if(skill == null){
+//        this.skill = skill;
+//    }
 }

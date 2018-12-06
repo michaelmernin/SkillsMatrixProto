@@ -9,29 +9,30 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@NodeEntity(label = "Skill")
-public class Skill {
+@NodeEntity
+public class Skill extends AbstractSkill {
 
     @GeneratedValue@Id private Long id;
 
     private String name;
-    private String resourceLinks;
+    private Map<String, String> resourceLinks;
     private String description;
     private String technology;
 
 
-
-    public Skill(String name, String resourceLinks, String description, String technology) {
+    public Skill(String name) {
         this.name = name;
-        this.resourceLinks = resourceLinks;
-        this.description = description;
-        this.technology = technology;
     }
 
     public Skill() {
     }
 
-    public void setResourceLinks(String resourceLinks) {
+
+    public Map<String, String> getResourceLinks() {
+        return resourceLinks;
+    }
+
+    public void setResourceLinks(Map<String, String> resourceLinks) {
         this.resourceLinks = resourceLinks;
     }
 
@@ -51,9 +52,7 @@ public class Skill {
         this.name = name;
     }
 
-    public String getResourceLinks() {
-        return resourceLinks;
-    }
+
 
     public String getDescription() {
         return description;

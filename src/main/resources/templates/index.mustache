@@ -8,22 +8,58 @@
 
 <h1>Early Skills Matrix Prototype With Spring-Data-Neo4J</h1>
 
+{{#error}}
+    <b>{{error}}!!!!!!</b>
+{{/error}}
+<br>
+<br>
 
-<form action="/employee" method="get">
-    <button type="submit">Employee Page</button>
+Add BU into System
+
+<form action="/addBusinessUnit" method="post">
+    <input type="text" placeholder="Business Unit Name" name="buName">
+    <input type="text" placeholder="Business Unit Location" name="buLocation">
+    <button type="submit">Add BU</button>
 </form>
+<br>
+<br>
 
+Go to a BU's page
 
-<form action="/project" method="get">
-    <button type="submit">Project Page</button>
-</form>
-
-<form action="/BU" method="get">
+<form action="/getBU" method="get">
+    <input type="text" placeholder="BU Name" name="buName">
     <button type="submit">GO TO A BU Page</button>
 </form>
+<br>
+<br>
 
-<form action="/skills" method="get">
-    <button type="submit">Go To Skills Page</button>
+Add an employee into the system and declare which BU they belong to
+<form action="/addEmployee" method="post">
+    <input type="text" placeholder="New Employee Name" name="employeeName">
+    <input type="text" placeholder="Employee Role" name="roleName">
+    <input type="text" placeholder="Employee Location" name="locationName">
+    <input type="text" placeholder="Business Unit" name="buName">
+    <button type="submit">Add Employee</button>
 </form>
+<br>
+<br>
+
+Add a Category of Skill to the System
+<form action="/addCategorySkill" method="post">
+    <input type="text" placeholder="Skill Name" name="skillName"/><br>
+    <button type="submit">ADD Category Skill</button>
+</form>
+<br>
+<br>
+
+Add Skills to system, must also specify category of skill
+
+<form action="/addSkill" method="post">
+    <input type="text" placeholder="Skill Name" name="skillName"/><br>
+    <input type="text" placeholder="Category Skill" name="categorySkillName"/><br>
+    <button type="submit">ADD Skill</button>
+</form>
+
+
 </body>
 </html>

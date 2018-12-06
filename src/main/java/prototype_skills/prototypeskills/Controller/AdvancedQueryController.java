@@ -34,21 +34,21 @@ public class AdvancedQueryController {
 
     @GetMapping(path = "/compareEmpToBUSkills")
     public String empBUSkill(Model model, String employeeName, String buName){
-        Employee employee = employeeRepository.findFirstByName(employeeName);
-        BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
-        Collection<Skill> skillList = skillRepository.employeeHasBUSkills(employee.getName(), businessUnit.getName());
-        Collection<Skill> noSkillList = skillRepository.employeeNeedsBUSkills(employee.getName(), businessUnit.getName());
-        List<String> noSkills = new ArrayList<>();
-        List<String> hasSkills = new ArrayList<>();
-        skillList.forEach(skill -> hasSkills.add(skill.getName()));
-        noSkillList.forEach(nonSkill -> noSkills.add(nonSkill.getName()));
-        model.addAttribute("Employee", employee);
-        model.addAttribute("employeeName", employee.getName());
-        model.addAttribute("projectName", businessUnit.getName());
-        model.addAttribute("skills", hasSkills);
-        model.addAttribute("nonSkills", noSkills);
+//        Employee employee = employeeRepository.findFirstByName(employeeName);
+//        BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
 
-        //skillList.forEach(hasSkill -> model.addAttribute("skills", hasSkill.getName()));
+//        List<String> noSkills = new ArrayList<>();
+//        List<String> hasSkills = new ArrayList<>();
+        //skillList.forEach(skill -> hasSkills.add(skill.getName()));
+        //noSkillList.forEach(nonSkill -> noSkills.add(nonSkill.getName()));
+        //model.addAttribute("Employee", employee);
+        List<String> skillList = skillRepository.employeeHasBUSkills(employeeName, buName);
+        List<String> noSkillList = skillRepository.employeeNeedsBUSkills(employeeName, buName);
+        model.addAttribute("employeeName", employeeName);
+        model.addAttribute("buName", buName);
+        model.addAttribute("skills", skillList);
+        model.addAttribute("nonSkills", noSkillList);
+
 
         return "comparePage";
     }

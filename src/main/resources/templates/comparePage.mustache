@@ -6,20 +6,26 @@
 </head>
 <body>
 
-{{#Employee}} Employee {{employeeName}} has the necessary skills below needed for {{projectName}}
+{{#employeeName}} Perficient Employee {{employeeName}} of BU {{buName}} <br>
 
+<b>has the necessary skills below needed for their business unit </b>(which should be colored green)
+<br>
+<br>
 {{#skills}}
-    {{skills}}
+    {{.}}<br>
 {{/skills}}
+<br>
+<br>
+<b>Does not have the Skills </b> (skills should remain white)
+<br>
 
-Does not have the Skill for {{projectName}}
-
+<br>
 {{#nonSkills}}
-    {{.}}
+    {{.}}<br>
 {{/nonSkills}}
 
 
-{{/Employee}}
+{{/employeeName}}
 
 <form action="/" method="get">
     <button type="submit">Go Home</button>

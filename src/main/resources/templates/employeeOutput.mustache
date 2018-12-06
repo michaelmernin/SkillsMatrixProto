@@ -5,20 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-{{#Employee}}
-Perficient Employee: <b>{{employeeName}}</b> role: {{employeeRole}} Project: {{#ProjectWorkingOn}} {{ProjectWorkingOn}} {{/ProjectWorkingOn}} skills:{{#SKILLS_POSSESSED}} {{SKILLS_POSSESSED}} {{/SKILLS_POSSESSED}}
+{{#employeeName}}
+Perficient Employee: <b>{{employeeName}}</b> role: {{employeeRole}}
 
 Enter Skill for Employee {{employeeName}}
 <form action="/addSkillToEmployee" method="post">
-    <input type="text" value="{{employeeName}}" name="empName">
+    <input type="text" value="{{employeeName}}" name="employeeName">
     <input type="text" placeholder="Name of Skill" name="skillName"/><br>
     <input type="text" placeholder="Expertise (1-5)" name="expertise"/><br>
-    <input type="text" placeholder="Expertise Description" name="descrExpertise"/><br>
+    <input type="text" placeholder="Expertise Description" name="expertiseDescription"/><br>
     <button type="submit">ADD Skill</button>
 </form>
 
 <form action="/employeeSkills" method="get">
-    <input type="text" value="{{employeeName}}" name="name">
+    <input type="text" value="{{employeeName}}" name="employeeName">
     <button type="submit">Get SKills</button>
 </form>
 
@@ -31,10 +31,10 @@ Enter Skill for Employee {{employeeName}}
 </form>
 
 
-<form action="/compareEmpToSkills" method="get">
+<form action="/compareEmpToBUSkills" method="get">
     <input type="text" value="{{employeeName}}" name="employeeName">
-    <input type="text" placeholder="Project Name" name="projectName">
-    <button type="submit">Compare Employee skillset against Project essential skills</button>
+    <input type="text" value="{{buName}}" name="buName">
+    <button type="submit">View Your SKill Tree</button>
 </form>
 <form action="/editEmployee" method="post">
     <input type="text" value="{{employeeName}}" name="newName">
@@ -43,7 +43,7 @@ Enter Skill for Employee {{employeeName}}
     <input type="text" placeholder="Edit Location" name="editLocation"/><br>
     <button type="submit">Edit Employee</button>
 </form>
-{{/Employee}}
+{{/employeeName}}
 
 <form action="/" method="get">
     <button type="submit">Go Home</button>

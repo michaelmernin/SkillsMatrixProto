@@ -3,8 +3,11 @@ package prototype_skills.prototypeskills.Relationships;
 import org.neo4j.ogm.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import prototype_skills.prototypeskills.DAO.Rels.HasSkillRepository;
+import prototype_skills.prototypeskills.Entities.CategorySkill;
 import prototype_skills.prototypeskills.Entities.Employee;
 import prototype_skills.prototypeskills.Entities.Skill;
+
+import java.util.HashMap;
 
 @RelationshipEntity(type = "HAS_SKILL")
 public class HasSkill {
@@ -13,8 +16,10 @@ public class HasSkill {
     @GeneratedValue@Id private Long id;
     @Property private String expertise;
     @Property private String descriptionOfExpertise;
+    //@Property private HashMap<String, String>
     @StartNode private Employee employee;
     @EndNode private Skill skill;
+
 
     public HasSkill (String expertise, String descriptionOfExpertise, Employee employee, Skill skill) {
         this.expertise = expertise;
@@ -24,12 +29,11 @@ public class HasSkill {
         //return this;
     }
 
+
     public HasSkill() {
     }
 
-//    public HasSkill getHasSkill(){
-//
-//    }
+
 
 
     public Long getId() {

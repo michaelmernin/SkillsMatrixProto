@@ -18,6 +18,9 @@ public class Employee {
     @Relationship(type = "HAS_SKILL")
     private Skill skill;
 
+    @Relationship(type = "HAS_SKILL")
+    private CategorySkill categorySkill;
+
     @Relationship(type = "EMPLOYEE_OF_BU")
     private BusinessUnit businessUnitWorkingFor;
 

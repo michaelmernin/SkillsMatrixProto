@@ -6,70 +6,72 @@
 </head>
 <body>
 
-<form action="/addBusinessUnit" method="post">
-    <input type="text" placeholder="Add BU Name" name="buName">
-    <input type="text" placeholder="BU Location" name="buLocation">
-    <button type="submit">Add BU</button>
-</form>
+{{#error}}
+    {{error}}
+{{/error}}
 
-<form action="/getBU" method="get">
-    <input type="text" placeholder="Find BU" name="buName">
-    <button type="submit">Get BU</button>
-</form>
 
 {{#buName}}
+
+    Get List of Employees, will print out below
 <form action="/getEmployeesOfBU" method="get">
     <input type="text" value="{{buName}}" name="buName">
     <button type="submit">Get Employees of BU {{buName}}</button>
 </form>
 
-   Employees of {{buName}}: {{#employees}} {{.}} {{/employees}}
+    {{#employees}} {{.}} {{/employees}}
+<br>
+    <br>
 
-<form action="/addEmployeeToBU" method="post">
+    Add an Employee to {{buName}}
+<form action="/addEmployee" method="post">
     <input type="text" value="{{buName}}" name="buName">
     <input type="text" placeholder="Name of Employee" name="employeeName">
     <button type="submit">Add Employee To BU</button>
 </form>
 
-<form action="/getEmployeeInfo" method="get">
-    <input type="text" placeholder="Name of Employee To Get" name="text"/><br>
-    <button type="submit">Get Employee Info</button>
+    <br>
+    <br>
 
+    Select an Employee to View, employee must be apart of {{buName}} and in the system
+<form action="/getEmployeeInfo" method="get">
+    <input type="text" placeholder="Name of Employee To Get" name="employeeName"/>
+    <input type="text" value="{{buName}}" name="buName">
+    <button type="submit">Get Employee Info</button>
 </form>
 
+    <br>
+    <br>
+
+    Don't Use!!
 <form action="/getBUSkills" method="get">
     <input type="text" value="{{buName}}" name="buName"/><br>
     <button type="submit">Get BU Foundational Skills</button>
-
 </form>
-
-
-<form action="/addBUSkills" method="post">
+<br>
+    <br>
+Add Skills to {{buName}}'s Skill Tree
+<form action="/addSkillsToBU" method="post">
     <input type="text" value="{{buName}}" name="buName"/><br>
     <input type="text" placeholder="Skill" name="skillName"/><br>
     <button type="submit">ADD Skill to Business Unit</button>
 </form>
+<br>
+<br>
 
+View Skill Tree Report Employee against {{buName}}'s Skill Tree
 <form action="/compareEmpToBUSkills" method="get">
     <input type="text" value="{{buName}}" name="buName"/><br>
     <input type="text" placeholder="Employee Name" name="employeeName"/><br>
-    <button type="submit">Employee's Skill Report</button>
+    <button type="submit">Employee's Skill Tree</button>
 </form>
+<br>
+<br>
 
-{{#skills}}
-    {{.}}
-{{/skills}}
-
-{{/buName}}
-
-{{#buList}}
-    BU:
-    {{.}}
-{{/buList}}
 
 <form action="/" method="get">
-    <button type="submit">Go Home</button>
+    <button type="submit">Go To Front Page</button>
 </form>
-
+{{/buName}}
 </body>
 </html>
