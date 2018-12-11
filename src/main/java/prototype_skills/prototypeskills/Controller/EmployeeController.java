@@ -1,5 +1,6 @@
 package prototype_skills.prototypeskills.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.javafx.UnmodifiableArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,6 +60,7 @@ public class EmployeeController {
         BusinessUnit businessUnit = employeeRepository.addEmployee(employeeName, locationName, roleName, buName);
         if(businessUnit == null){
             System.out.println("BU does not exist in system");
+            //slf4j logger logback
         }
 
         return "index";
@@ -82,17 +84,31 @@ public class EmployeeController {
         return "employeePage";
     }
 
+    @GetMapping(path = "/getEmployeeSkillExpertise")
+    public String employeeSkillExpertise(Model model, String skillName, String employeeName){
+
+        Map<String, String> r = hasSkillRepository.getHasSkillDetails(employeeName, skillName);
+
+        model.addAttribute("currentJsonObject", r);
+        model.addAttribute("employeeName", employeeName);
+
+        return "employeePage";
+    }
+
     @PostMapping(path = "/editEmployeeSkill")
-    public String employeeEditSkill(String skillName, String expertise, String description, String name){
+    public String employeeEditSkill(Model model, String skillName, String expertise, String description, String employeeName) throws Exception{
 
-        Map<String, String> r = hasSkillRepository.getHasSkillDetails(name, skillName);
-
+        Map<String, String> r = hasSkillRepository.getHasSkillDetails(employeeName, skillName);
+        String previousJsonObject = new ObjectMapper().writeValueAsString(r);
         String exp = r.get("expertise");
         String desc = r.get("expertiseDescription");
 
-        int x = 5;
+        model.addAttribute("buName", businessUnitRepository.findByEmployee(employeeName).getName());
+        model.addAttribute("previousJsonObject", previousJsonObject);
+        model.addAttribute("employeeName", employeeName);
+        //model.addAttribute("newJsonObject", );
 
-        return "employeePage";
+        return "employeeOutput";
     }
 
     @PostMapping(path = "/addSkillToEmployee")
@@ -109,10 +125,12 @@ public class EmployeeController {
 
         employeeRepository.addSkillToEmployee(skillName, expertise, expertiseDescription, employeeName);
         Employee employee = employeeRepository.findByName(employeeName);
+        BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
 
-        model.addAttribute("Employee", employee);
+        //model.addAttribute("Employee", employee);
         model.addAttribute("employeeRole", employee.getRole());
         model.addAttribute("employeeName", employee.getName());
+        model.addAttribute("buName", businessUnit.getName());
 
         return "employeeOutput";
     }
@@ -120,9 +138,22 @@ public class EmployeeController {
     @GetMapping(path = "/getEmployeeInfo")
     public String getEmployeeInfo(Model model, String employeeName) throws Exception{
 
-        Employee employee = employeeRepository.findByName(employeeName);
+        //Optional<Employee> em = employeeRepository.findById(Long.parseLong("5"));
+
+        List<Employee> employeeList = employeeRepository.findByName(employeeName);
+        if(employeeList.size() > 1){
+            return "mulitple users found with same name, give them list to choose which employee they are";
+        } else {
+            Employee employee = employeeList.get(0);
+        }
+
+
         BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
 
+        String employeeJsonObject = new ObjectMapper().writeValueAsString(employee);
+
+
+        model.addAttribute("employeeJsonObject", employeeJsonObject);
         model.addAttribute("buName", businessUnit.getName());
         model.addAttribute("employeeRole", employee.getRole());
         model.addAttribute("employeeName", employee.getName());

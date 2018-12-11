@@ -6,47 +6,99 @@
 </head>
 <body>
 {{#employeeName}}
-Perficient Employee: <b>{{employeeName}}</b> role: {{employeeRole}}
+Perficient Employee: <b>{{employeeName}}</b> {{#employeeRole}} role: {{employeeRole}}{{/employeeRole}}
+<br>
+<br>
 
-Enter Skill for Employee {{employeeName}}
+Employee JSON Object: <br>
+<br>
+{{#employeeJsonObject}}
+    {{employeeJsonObject}}
+{{/employeeJsonObject}}
+
+<br>
+<br>
+<br>
+
+
+Enter Skill for Employee:
+
 <form action="/addSkillToEmployee" method="post">
-    <input type="text" value="{{employeeName}}" name="employeeName">
+    <input type="text" value="{{employeeName}}" name="employeeName" hidden> <br>
     <input type="text" placeholder="Name of Skill" name="skillName"/><br>
     <input type="text" placeholder="Expertise (1-5)" name="expertise"/><br>
     <input type="text" placeholder="Expertise Description" name="expertiseDescription"/><br>
+    <input type="text" value="{{buName}}" name="buName" hidden>
     <button type="submit">ADD Skill</button>
 </form>
-
+<br>
+<br>
+!!!Not Sure if needed!!
 <form action="/employeeSkills" method="get">
-    <input type="text" value="{{employeeName}}" name="employeeName">
+    <input type="text" value="{{employeeName}}" name="employeeName" hidden>
     <button type="submit">Get SKills</button>
 </form>
-
+<br>
+<br>
+Edit Your Expertise(Meta-Data of Relationship) for a skill within your skill tree
+<br>
+<br>
+    Previous (Meta-Data of Relationship) json object (will appear upon an edit):
+<br>
+{{#previousJsonObject}}
+    {{previousJsonObject}}
+{{/previousJsonObject}}
 <form action="/editEmployeeSkill" method="post">
-    <input type="text" value="{{employeeName}}" name="name">
+    <input type="text" value="{{employeeName}}" name="employeeName" hidden>
+    <input type="text" value="{{buName}}" name="buName" hidden>
     <input type="text" placeholder="Skill name" name="skillName">
     <input type="text" placeholder="Expertise Level" name="expertise">
     <input type="text" placeholder="Description" name="description">
     <button type="submit">Edit SKills</button>
 </form>
 
-
-<form action="/compareEmpToBUSkills" method="get">
-    <input type="text" value="{{employeeName}}" name="employeeName">
-    <input type="text" value="{{buName}}" name="buName">
-    <button type="submit">View Your SKill Tree</button>
-</form>
+{{#newJsonObject}}
+    {{newJsonObject}}
+{{/newJsonObject}}
+<br>
+<br>
+Edit Details of your account
+<br>
 <form action="/editEmployee" method="post">
-    <input type="text" value="{{employeeName}}" name="newName">
+    <input type="text" value="{{employeeName}}" name="newName" hidden>
     <input type="text" placeholder="Edit Name of Employee" name="editNewName"/><br>
     <input type="text" placeholder="Edit Employee Role" name="editRole"/><br>
     <input type="text" placeholder="Edit Location" name="editLocation"/><br>
     <button type="submit">Edit Employee</button>
 </form>
+<br>
+<br>
+
+Compare your Skill Tree against your BU
+<br>
+<form action="/compareEmpToBUSkills" method="get">
+    <input type="text" value="{{employeeName}}" name="employeeName" hidden>
+    <input type="text" value="{{buName}}" name="buName" hidden>
+    <button type="submit">Compare Skill Tree</button>
+</form>
+<br>
+    <br>
+
+    View Your Skill Tree
+    <br>
+    <form action="/getEmployeeSkillTree" method="get">
+        <input type="text" value="{{employeeName}}" name="employeeName" hidden>
+        <button type="submit">View Skill Tree</button>
+    </form>
+    <br>
+    <br>
+
 {{/employeeName}}
 
-<form action="/" method="get">
-    <button type="submit">Go Home</button>
+Return to Your BU's page
+<form action="/getBU" method="get">
+    <input type="text" value="{{buName}}" name="buName" hidden>
+    <button type="submit">Go To Your BU Homepage</button>
 </form>
 </body>
 </html>

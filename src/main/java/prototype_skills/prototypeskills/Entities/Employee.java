@@ -4,13 +4,25 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
+import prototype_skills.prototypeskills.DAO.BusinessUnitRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @NodeEntity(label = "Employee")
 public class Employee {
 
+
     @GeneratedValue@Id private Long id;
 
     private String name;
+    //will be unique
+    private String email;
     private  String role;
     private  String location;
 
@@ -66,20 +78,4 @@ public class Employee {
         this.location = location;
     }
 
-
-//    public Skill getSkill() {
-//        return skill;
-//    }
-//
-//    public void setSkill(Skill skill) {
-//        this.skill = skill;
-//    }
-
-    public BusinessUnit getBusinessUnitWorkingFor() {
-        return businessUnitWorkingFor;
-    }
-
-    public void setBusinessUnitWorkingFor(BusinessUnit businessUnitWorkingFor) {
-        this.businessUnitWorkingFor = businessUnitWorkingFor;
-    }
 }

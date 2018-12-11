@@ -14,11 +14,11 @@ public interface CategorySkillRepository extends Neo4jRepository<CategorySkill, 
 
 
     //returns the category of a skill
-    @Query("MATCH (:SKILL {name: {skillName}})-[r:SKILL_OF_CATEGORY]->(cs:SKILL :CATEGORY) RETURN cs")
+    @Query("MATCH (:SKILL {name: {skillName}})-[r:SKILL_OF_CATEGORY]->(cs:CATEGORY) RETURN cs")
     CategorySkill findCategoryBySkill(@Param("skillName") String skillName);
 
     //returns list of category skills tree for a BU
-    @Query("MATCH (cs:Skill :Category)<-[r:CATEGORY_BU_SKILL]-(e:BusinessUnit {name: {buName}}) RETURN s")
+    @Query("MATCH (cs:Category)<-[r:CATEGORY_BU_SKILL]-(e:BusinessUnit {name: {buName}}) RETURN s")
     Collection<CategorySkill> buSkillsList(@Param("buName") String buName);
 
 }

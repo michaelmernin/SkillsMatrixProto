@@ -15,6 +15,12 @@ import java.util.Map;
 public interface HasSkillRepository extends Neo4jRepository<HasSkill, Long> {
 
 
+    //Adds skill and the skill's category to an employee's skills list, skill and employee must exist within system
+    @Query("MATCH (s:Skill {name: {skillName}}) MATCH (e:Employee {name: {employeeName}}) MATCH (s)-[cr:SKILL_OF_CATEGORY]->(c:Category) MERGE (e)-[has:HAS_SKILL {expertise: {expertise}, expertiseDescription: {expertiseDescription}}]->(s)" +
+            " MERGE (e)-[:HAS_CATEGORY_SKILL]->(c)")
+    void addSkillToEmployee (@Param("skillName") String skillName, @Param("expertise") String expertise, @Param("expertiseDescription") String expertiseDescription,
+                             @Param("employeeName") String employeeName);
+
     @Query("MATCH (s:Skill {name: {skillName}})<-[r:HAS_SKILL]-(e:Employee {name: {employeeName}}) RETURN properties(r)")
     Map<String, String> getHasSkillDetails(@Param("employeeName") String employeeName, @Param("skillName") String skillName);
 

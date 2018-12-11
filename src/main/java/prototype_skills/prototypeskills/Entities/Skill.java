@@ -3,18 +3,19 @@ package prototype_skills.prototypeskills.Entities;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.Property;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-@NodeEntity
-public class Skill extends AbstractSkill {
+@NodeEntity(label = "Skill")
+public class Skill {
 
     @GeneratedValue@Id private Long id;
 
+    @Property
     private String name;
+
+
     private Map<String, String> resourceLinks;
     private String description;
     private String technology;

@@ -1,6 +1,7 @@
 package prototype_skills.prototypeskills.Controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.QueryCreationException;
 import org.springframework.stereotype.Controller;
@@ -93,8 +94,10 @@ public class BusinessUnitController {
     public String getBUs(Model model, String buName) throws Exception{
 
         BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
-        model.addAttribute("buName", businessUnit.getName());
+        String json = new ObjectMapper().writeValueAsString(businessUnit);
 
+        model.addAttribute("buName", businessUnit.getName());
+        model.addAttribute("buJsonObject", json);
         return "buPage";
     }
 
@@ -121,6 +124,7 @@ public class BusinessUnitController {
         return "buPage";
     }
 
+    //Adds a skill into the skill tree of a BU
     @PostMapping(path = "/addSkillsToBU")
     public String addProjectSkills(Model model, String buName, String skillName) {
 
@@ -135,23 +139,24 @@ public class BusinessUnitController {
 
         return "buPage";
     }
-
+    //Returns JSON formatted skill tree of BU
     @GetMapping(path = "/getBUSkillsTree")
-    public String empSkill(Model model, String buName){
+    public String empSkill(Model model, String buName) throws Exception {
         BusinessUnit businessUnit = businessUnitRepository.findByName(buName);
-        Collection<Skill> skillList = skillRepository.buSkillsList(businessUnit.getName());
+        List<HashMap<String, String>> queriedSkillTree = skillRepository.findBUSkillTree(businessUnit.getName());
+        String skillTree = new ObjectMapper().writeValueAsString(queriedSkillTree);
 
-        List<String> stringList = new ArrayList<>();
-        skillList.forEach(hasSkill -> stringList.add(hasSkill.getName()));
-        model.addAttribute("skills", stringList);
-        model.addAttribute("buName", buName);
-
-        return "buPage";
-    }
-
-    @GetMapping(path = "/getBUCategorySkillTree")
-    public String buSkillTree(Model model, String buName){
+        model.addAttribute("skillTree", skillTree);
+        model.addAttribute("buName", businessUnit.getName());
 
         return "buPage";
     }
+
+
+    //Probably won't need since the Skill Tree will return categories and skills
+//    @GetMapping(path = "/getBUCategorySkillTree")
+//    public String buSkillTree(Model model, String buName){
+//
+//        return "buPage";
+//    }
 }

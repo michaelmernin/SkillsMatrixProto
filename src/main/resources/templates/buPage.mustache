@@ -12,6 +12,14 @@
 
 
 {{#buName}}
+    {{#buJsonObject}}
+        Business Unit Json Object:
+        <br>
+        {{buJsonObject}}
+        <br>
+        <br>
+    {{/buJsonObject}}
+
 
     Get List of Employees, will print out below
 <form action="/getEmployeesOfBU" method="get">
@@ -61,13 +69,28 @@ Add Skills to {{buName}}'s Skill Tree
 
 View Skill Tree Report Employee against {{buName}}'s Skill Tree
 <form action="/compareEmpToBUSkills" method="get">
-    <input type="text" value="{{buName}}" name="buName"/><br>
+    <input type="text" value="{{buName}}" name="buName" hidden/><br>
     <input type="text" placeholder="Employee Name" name="employeeName"/><br>
     <button type="submit">Employee's Skill Tree</button>
 </form>
 <br>
 <br>
 
+    View Skill Tree for {{buName}} (JSON response will print below)
+    <form action="/getBUSkillsTree" method="get">
+        <input type="text" value="{{buName}}" name="buName" hidden>
+        <button type="submit">View Skill Tree</button>
+    </form>
+
+    <br>
+    <br>
+
+    {{#skillTree}}
+        {{skillTree}}
+    {{/skillTree}}
+
+<br>
+    <br>
 
 <form action="/" method="get">
     <button type="submit">Go To Front Page</button>
