@@ -33,13 +33,7 @@ Enter Skill for Employee:
 </form>
 <br>
 <br>
-!!!Not Sure if needed!!
-<form action="/employeeSkills" method="get">
-    <input type="text" value="{{employeeName}}" name="employeeName" hidden>
-    <button type="submit">Get SKills</button>
-</form>
-<br>
-<br>
+
 Edit Your Expertise(Meta-Data of Relationship) for a skill within your skill tree
 <br>
 <br>
@@ -90,6 +84,13 @@ Compare your Skill Tree against your BU
         <input type="text" value="{{employeeName}}" name="employeeName" hidden>
         <button type="submit">View Skill Tree</button>
     </form>
+    <br>
+    <br>
+
+    {{#skillTree}}
+        {{skillTree}}
+    {{/skillTree}}
+
     <br>
     <br>
 

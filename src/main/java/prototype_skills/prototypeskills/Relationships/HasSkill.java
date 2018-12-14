@@ -34,8 +34,6 @@ public class HasSkill {
     }
 
 
-
-
     public Long getId() {
         return id;
     }

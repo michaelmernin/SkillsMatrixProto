@@ -21,26 +21,12 @@ public class Employee {
     @GeneratedValue@Id private Long id;
 
     private String name;
-    //will be unique
     private String email;
-    private  String role;
-    private  String location;
 
 
-    @Relationship(type = "HAS_SKILL")
-    private Skill skill;
-
-    @Relationship(type = "HAS_SKILL")
-    private CategorySkill categorySkill;
-
-    @Relationship(type = "EMPLOYEE_OF_BU")
-    private BusinessUnit businessUnitWorkingFor;
-
-
-    public Employee(String name, String role, String location) {
+    public Employee(String name, String email) {
         this.name = name;
-        this.role = role;
-        this.location = location;
+        this.email = email;
     }
 
     public Employee() {
@@ -62,20 +48,12 @@ public class Employee {
         this.name = name;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

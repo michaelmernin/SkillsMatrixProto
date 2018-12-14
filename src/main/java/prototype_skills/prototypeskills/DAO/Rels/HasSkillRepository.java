@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import prototype_skills.prototypeskills.Relationships.HasSkill;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +34,14 @@ public interface HasSkillRepository extends Neo4jRepository<HasSkill, Long> {
 //    @Query("MATCH (s:Skill {name: {skillName}})<-[r:HAS_SKILL {expertise: {expertise}, descriptionOfExpertise: {description}}]-(e:Employee {name: {employeeName}}) set r.expertise = {expertise}")
 //    HasSkill editHasSkill(@Param("employeeName") String employeeName, @Param("skillName") String skillName, @Param("expertise") String expertise,
 //                          @Param("description") String description);
+
+    @Query("MATCH (s:Skill {name: {skillName}})<-[has:HAS_SKILL]-(e:Employee {name: {employeeName}}) RETURN has")
+    HasSkill getSkillRelationship(@Param("employeeName") String employeeName, @Param("skillName") String skillName);
+
+    @Query("MATCH (e:Employee {name: {employeeName}})-[has:HAS_SKILL]->(s:Skill)" +
+            "MATCH (s)-[cr:SKILL_OF_CATEGORY]->(c:Category)" +
+            "MATCH path = (e)-[:HAS_CATEGORY_SKILL]->(c)<-[cr]-(s)" +
+            "with collect(path) as paths call apoc.convert.toTree(paths) yield value return value")
+    List<HashMap<String, String>> getEmployeeSkillTree (@Param("employeeName") String employeeName);
 
 }

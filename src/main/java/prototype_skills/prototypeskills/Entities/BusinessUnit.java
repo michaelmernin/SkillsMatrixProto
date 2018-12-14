@@ -12,13 +12,14 @@ import java.util.Set;
 @NodeEntity(label = "BusinessUnit")
 public class BusinessUnit {
 
-    @GeneratedValue@Id private Long id;
+    @GeneratedValue
+    @Id
+    private Long id;
+
 
     private String name;
     private String location;
 
-    @Relationship(type = "CATEGORY_BU_SKILL")
-    private List<Skill> skill;
 
     public BusinessUnit(String name, String location) {
         this.name = name;
@@ -32,9 +33,7 @@ public class BusinessUnit {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -52,12 +51,4 @@ public class BusinessUnit {
         this.location = location;
     }
 
-//    public List<Skill> getSkill() {
-//        return skill;
-//    }
-//
-//    public void setSkill(List<Skill> skill) {
-//        if(skill == null){
-//        this.skill = skill;
-//    }
 }

@@ -55,11 +55,7 @@ public class SkillsController {
         if(newName != null){
             skill.setName(newName);
         }
-        if(resourceKey != null){
-            Map<String, String> resourceLinks = new HashMap<>();
-            resourceLinks.put(resourceKey, resourceValue);
-            skill.setResourceLinks(resourceLinks);
-        }
+
 
         skillRepository.save(skill);
 

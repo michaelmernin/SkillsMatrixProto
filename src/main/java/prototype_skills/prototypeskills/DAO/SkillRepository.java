@@ -25,8 +25,6 @@ public interface SkillRepository extends Neo4jRepository<Skill, Long> {
     @Query("MATCH (s:Skill)<-[r:HAS_SKILL]-(e:Employee {name: {employeeName}}) RETURN s")
     Collection<Skill> skillsList(@Param("employeeName") String employeeName);
 
-    @Query("MATCH (s:Skill {name: {skillName}})<-[r:HAS_SKILL]-(e:Employee {name: {employeeName}}) RETURN r")
-    HasSkill getSkillRelationship(@Param("employeeName") String employeeName, @Param("skillName") String skillName);
 
     //!!Working Version
     //Returns list of skills in the BU skill tree that the employee DOES NOT HAVE

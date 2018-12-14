@@ -44,7 +44,7 @@
     Select an Employee to View, employee must be apart of {{buName}} and in the system
 <form action="/getEmployeeInfo" method="get">
     <input type="text" placeholder="Name of Employee To Get" name="employeeName"/>
-    <input type="text" value="{{buName}}" name="buName">
+    <input type="text" value="{{buName}}" name="buName" hidden>
     <button type="submit">Get Employee Info</button>
 </form>
 
@@ -53,14 +53,14 @@
 
     Don't Use!!
 <form action="/getBUSkills" method="get">
-    <input type="text" value="{{buName}}" name="buName"/><br>
+    <input type="text" value="{{buName}}" name="buName" hidden><br>
     <button type="submit">Get BU Foundational Skills</button>
 </form>
 <br>
     <br>
 Add Skills to {{buName}}'s Skill Tree
 <form action="/addSkillsToBU" method="post">
-    <input type="text" value="{{buName}}" name="buName"/><br>
+    <input type="text" value="{{buName}}" name="buName" hidden><br>
     <input type="text" placeholder="Skill" name="skillName"/><br>
     <button type="submit">ADD Skill to Business Unit</button>
 </form>

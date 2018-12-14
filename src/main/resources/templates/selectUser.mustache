@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{{error}}
+<br>
+<br>
+
+{{#employeeList}}
+    {{.}}
+{{/employeeList}}
+
+<br>
+<br>
+
+From list above select id of account
+<form action="/getEmployeeInfoById" method="get">
+    <input type="text" placeholder="ID of Employee To Get" name="employeeId"/>
+    <input type="text" placeholder="BU of employee" name="buName">
+    <button type="submit">Get Employee Info</button>
+</form>
+
+</body>
+</html>

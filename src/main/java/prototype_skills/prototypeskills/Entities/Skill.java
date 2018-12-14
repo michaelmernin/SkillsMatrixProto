@@ -5,6 +5,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
+import java.util.List;
 import java.util.Map;
 
 @NodeEntity(label = "Skill")
@@ -14,9 +15,7 @@ public class Skill {
 
     @Property
     private String name;
-
-
-    private Map<String, String> resourceLinks;
+    private List<Map<String, String>> resourceLinks;
     private String description;
     private String technology;
 
@@ -29,11 +28,11 @@ public class Skill {
     }
 
 
-    public Map<String, String> getResourceLinks() {
+    public List<Map<String, String>> getResourceLinks() {
         return resourceLinks;
     }
 
-    public void setResourceLinks(Map<String, String> resourceLinks) {
+    public void setResourceLinks(List<Map<String, String>> resourceLinks) {
         this.resourceLinks = resourceLinks;
     }
 

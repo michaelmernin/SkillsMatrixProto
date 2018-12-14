@@ -9,13 +9,14 @@ import prototype_skills.prototypeskills.Entities.Employee;
 import prototype_skills.prototypeskills.Entities.Skill;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public interface EmployeeRepository extends Neo4jRepository<Employee, Long> {
 
-    List<Employee> findByName(String name);
+    List<Employee> findAllByName(String name);
 
-
+    Employee findByName(String name);
 
     //returns all employees of specified BU
     @Query("MATCH (bu:BusinessUnit {name: {buName}})<-[r:EMPLOYEE_OF_BU]-(e:Employee) RETURN e")
