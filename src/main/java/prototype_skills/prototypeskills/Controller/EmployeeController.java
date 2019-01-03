@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import prototype_skills.prototypeskills.DAO.BusinessUnitRepository;
 import prototype_skills.prototypeskills.DAO.CategorySkillRepository;
 import prototype_skills.prototypeskills.DAO.EmployeeRepository;
+import prototype_skills.prototypeskills.DAO.Rels.EmployeeOfBURepo;
 import prototype_skills.prototypeskills.DAO.Rels.HasCategorySkillRepo;
 import prototype_skills.prototypeskills.DAO.Rels.HasSkillRepository;
 import prototype_skills.prototypeskills.DAO.SkillRepository;
@@ -45,6 +47,9 @@ public class EmployeeController {
     @Autowired
     BusinessUnitRepository businessUnitRepository;
 
+    @Autowired
+    EmployeeOfBURepo employeeOfBURepo;
+
 //    @GetMapping(path = "/employee")
 //    public String employee(){
 //
@@ -57,7 +62,7 @@ public class EmployeeController {
 //        Employee name = new Employee(employeeName, roleName, location);
 //        employeeRepository.save(name);
 
-        BusinessUnit businessUnit = employeeRepository.addEmployee(employeeName, locationName, roleName, buName);
+        BusinessUnit businessUnit = employeeOfBURepo.addEmployee(employeeName, locationName, roleName, buName);
         if(businessUnit == null){
             System.out.println("BU does not exist in system");
             //slf4j logger logback
@@ -66,10 +71,12 @@ public class EmployeeController {
         return "index";
     }
 
-    @PostMapping(path = "/editEmployee")
+    @PutMapping(path = "/editEmployee")
+    //@PostMapping(path = "/editEmployee")
     public String employeeEdit(String newName, String editNewName, String editRole, String editLocation){
 
-        Employee name = employeeRepository.findByName(newName);
+        List<Employee> queryList = employeeRepository.findByName(newName);
+        Employee name = queryList.get(0);
         if(editLocation.length() != 0) {
             name.setLocation(editLocation);
         }
@@ -123,8 +130,9 @@ public class EmployeeController {
 //        hasCategorySkillRepo.save(hasCategorySkill);
 //        hasSkillRepository.save(rskill);
 
-        employeeRepository.addSkillToEmployee(skillName, expertise, expertiseDescription, employeeName);
-        Employee employee = employeeRepository.findByName(employeeName);
+        hasSkillRepository.addSkillToEmployee(skillName, expertise, expertiseDescription, employeeName);
+        List<Employee> queryList = employeeRepository.findByName(employeeName);
+        Employee employee = queryList.get(0);
         BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
 
         //model.addAttribute("Employee", employee);
@@ -147,17 +155,14 @@ public class EmployeeController {
             Employee employee = employeeList.get(0);
         }
 
-
         BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
 
-        String employeeJsonObject = new ObjectMapper().writeValueAsString(employee);
-
+        String employeeJsonObject = new ObjectMapper().writeValueAsString(employeeList.get(0));
 
         model.addAttribute("employeeJsonObject", employeeJsonObject);
         model.addAttribute("buName", businessUnit.getName());
-        model.addAttribute("employeeRole", employee.getRole());
-        model.addAttribute("employeeName", employee.getName());
-
+        model.addAttribute("employeeRole", employeeList.get(0).getRole());
+        model.addAttribute("employeeName", employeeName);
 
 
         return "employeeOutput";
