@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8
 WORKDIR /
 ADD /build/libs/gs-spring-boot-docker-0.1.0.jar app.jar
 EXPOSE 8080
