@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import prototype_skills.prototypeskills.DAO.BusinessUnitRepository;
 import prototype_skills.prototypeskills.DAO.CategorySkillRepository;
 import prototype_skills.prototypeskills.DAO.EmployeeRepository;
+import prototype_skills.prototypeskills.DAO.Rels.EmployeeOfBURepo;
 import prototype_skills.prototypeskills.DAO.Rels.HasCategorySkillRepo;
 import prototype_skills.prototypeskills.DAO.Rels.HasSkillRepository;
 import prototype_skills.prototypeskills.DAO.SkillRepository;
@@ -29,6 +30,9 @@ public class EmployeeController {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    EmployeeOfBURepo employeeOfBURepo;
 
     @Autowired
     SkillRepository skillRepository;
@@ -57,7 +61,7 @@ public class EmployeeController {
 //        Employee name = new Employee(employeeName, roleName, location);
 //        employeeRepository.save(name);
 
-        BusinessUnit businessUnit = employeeRepository.addEmployee(employeeName, locationName, roleName, buName);
+        BusinessUnit businessUnit = employeeOfBURepo.addEmployee(employeeName, locationName, roleName, buName);
         if(businessUnit == null){
             System.out.println("BU does not exist in system");
             //slf4j logger logback
@@ -66,23 +70,23 @@ public class EmployeeController {
         return "index";
     }
 
-    @PostMapping(path = "/editEmployee")
-    public String employeeEdit(String newName, String editNewName, String editRole, String editLocation){
-
-        Employee name = employeeRepository.findByName(newName);
-        if(editLocation.length() != 0) {
-            name.setLocation(editLocation);
-        }
-        if(editNewName.length() != 0) {
-            name.setName(editNewName);
-        }
-        if(editRole.length() != 0) {
-            name.setRole(editRole);
-        }
-        employeeRepository.save(name);
-
-        return "employeePage";
-    }
+//    @PostMapping(path = "/editEmployee")
+//    public String employeeEdit(String newName, String editNewName, String editRole, String editLocation){
+//
+//        Employee name = employeeOfBURepo.findByName(newName);
+//        if(editLocation.length() != 0) {
+//            name.setLocation(editLocation);
+//        }
+//        if(editNewName.length() != 0) {
+//            name.setName(editNewName);
+//        }
+//        if(editRole.length() != 0) {
+//            name.setRole(editRole);
+//        }
+//        employeeRepository.save(name);
+//
+//        return "employeePage";
+//    }
 
     @GetMapping(path = "/getEmployeeSkillExpertise")
     public String employeeSkillExpertise(Model model, String skillName, String employeeName){
@@ -111,57 +115,57 @@ public class EmployeeController {
         return "employeeOutput";
     }
 
-    @PostMapping(path = "/addSkillToEmployee")
-    public String addEmployeeSkill(Model model, String skillName, String employeeName, String expertise, String expertiseDescription){
-
-//        Skill skill = skillRepository.findByName(skillName);
-//        Employee employee = employeeRepository.findByName(empName);
-//        CategorySkill categorySkill = categorySkillRepository.findBySkill(skill.getName());
-//        HasSkill rskill = new HasSkill(expertise, descrExpertise, employee, skill);
-//        HasCategorySkill hasCategorySkill = new HasCategorySkill(employee, categorySkill);
+//    @PostMapping(path = "/addSkillToEmployee")
+//    public String addEmployeeSkill(Model model, String skillName, String employeeName, String expertise, String expertiseDescription){
 //
-//        hasCategorySkillRepo.save(hasCategorySkill);
-//        hasSkillRepository.save(rskill);
+////        Skill skill = skillRepository.findByName(skillName);
+////        Employee employee = employeeRepository.findByName(empName);
+////        CategorySkill categorySkill = categorySkillRepository.findBySkill(skill.getName());
+////        HasSkill rskill = new HasSkill(expertise, descrExpertise, employee, skill);
+////        HasCategorySkill hasCategorySkill = new HasCategorySkill(employee, categorySkill);
+////
+////        hasCategorySkillRepo.save(hasCategorySkill);
+////        hasSkillRepository.save(rskill);
+//
+//        employeeRepository.addSkillToEmployee(skillName, expertise, expertiseDescription, employeeName);
+//        Employee employee = employeeRepository.findByName(employeeName);
+//        BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
+//
+//        //model.addAttribute("Employee", employee);
+//        model.addAttribute("employeeRole", employee.getRole());
+//        model.addAttribute("employeeName", employee.getName());
+//        model.addAttribute("buName", businessUnit.getName());
+//
+//        return "employeeOutput";
+//    }
 
-        employeeRepository.addSkillToEmployee(skillName, expertise, expertiseDescription, employeeName);
-        Employee employee = employeeRepository.findByName(employeeName);
-        BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
-
-        //model.addAttribute("Employee", employee);
-        model.addAttribute("employeeRole", employee.getRole());
-        model.addAttribute("employeeName", employee.getName());
-        model.addAttribute("buName", businessUnit.getName());
-
-        return "employeeOutput";
-    }
-
-    @GetMapping(path = "/getEmployeeInfo")
-    public String getEmployeeInfo(Model model, String employeeName) throws Exception{
-
-        //Optional<Employee> em = employeeRepository.findById(Long.parseLong("5"));
-
-        List<Employee> employeeList = employeeRepository.findByName(employeeName);
-        if(employeeList.size() > 1){
-            return "mulitple users found with same name, give them list to choose which employee they are";
-        } else {
-            Employee employee = employeeList.get(0);
-        }
-
-
-        BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
-
-        String employeeJsonObject = new ObjectMapper().writeValueAsString(employee);
-
-
-        model.addAttribute("employeeJsonObject", employeeJsonObject);
-        model.addAttribute("buName", businessUnit.getName());
-        model.addAttribute("employeeRole", employee.getRole());
-        model.addAttribute("employeeName", employee.getName());
-
-
-
-        return "employeeOutput";
-    }
+//    @GetMapping(path = "/getEmployeeInfo")
+//    public String getEmployeeInfo(Model model, String employeeName) throws Exception{
+//
+//        //Optional<Employee> em = employeeRepository.findById(Long.parseLong("5"));
+//
+//        List<Employee> employeeList = employeeRepository.findByName(employeeName);
+//        if(employeeList.size() > 1){
+//            return "mulitple users found with same name, give them list to choose which employee they are";
+//        } else {
+//            Employee employee = employeeList.get(0);
+//        }
+//
+//
+//        BusinessUnit businessUnit = businessUnitRepository.findByEmployee(employeeName);
+//
+//        String employeeJsonObject = new ObjectMapper().writeValueAsString(employee);
+//
+//
+//        model.addAttribute("employeeJsonObject", employeeJsonObject);
+//        model.addAttribute("buName", businessUnit.getName());
+//        model.addAttribute("employeeRole", employee.getRole());
+//        model.addAttribute("employeeName", employee.getName());
+//
+//
+//
+//        return "employeeOutput";
+//    }
 
     @GetMapping(path = "/employeeSkills")
     public String empSkill(Model model, String employeeName){

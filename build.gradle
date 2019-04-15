@@ -33,4 +33,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-config-client
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-config-client', version: '2.1.0.RELEASE'
+
 }

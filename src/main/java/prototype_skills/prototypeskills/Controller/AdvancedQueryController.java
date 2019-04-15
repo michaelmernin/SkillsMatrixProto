@@ -5,9 +5,12 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import jdk.nashorn.internal.ir.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import prototype_skills.prototypeskills.DAO.BusinessUnitRepository;
 import prototype_skills.prototypeskills.DAO.EmployeeRepository;
 
@@ -22,6 +25,7 @@ import prototype_skills.prototypeskills.Entities.Skill;
 import java.util.*;
 
 @Controller
+//@RestController
 public class AdvancedQueryController {
 
     @Autowired
@@ -33,6 +37,14 @@ public class AdvancedQueryController {
 
     @Autowired
     BusinessUnitRepository businessUnitRepository;
+
+    @Value("${client.pseudo.property}")
+    private String pseudoProperty;
+
+    @GetMapping("/property")
+    public ResponseEntity<String> getProperty() {
+        return ResponseEntity.ok(pseudoProperty);
+    }
 
 
 
