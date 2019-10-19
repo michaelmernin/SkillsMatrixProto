@@ -1,5 +1,5 @@
 package prototype_skills.prototypeskills.DAO;
-
+//trigger jenkins build
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.data.neo4j.annotation.Query;
