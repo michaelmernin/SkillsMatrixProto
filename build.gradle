@@ -16,17 +16,17 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'application'
-mainClassName = 'prototype_skills.prototypeskills.PrototypeskillsApplication'
-
+//mainClassName = 'prototype_skills.prototypeskills.PrototypeskillsApplication'
+mainClassName = mainClassName = 'prototype_skills.prototypeskills'
 group = 'Prototype_Skills'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
-bootJar{
-    baseName = 'gs-spring-boot-docker'
-    version = '0.1.0'
-    mainClassName = 'prototype_skills.prototypeskills.PrototypeskillsApplication'
-}
+//bootJar{
+  //  baseName = 'gs-spring-boot-docker'
+    //version = '0.1.0'
+   // mainClassName = 'prototype_skills.prototypeskills.PrototypeskillsApplication'
+//}
 
 repositories {
     mavenCentral()
